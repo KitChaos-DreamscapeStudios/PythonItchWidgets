@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
+import operator
 kill = False
 driver = webdriver.Firefox()
 while kill == False:
@@ -27,9 +28,10 @@ while kill == False:
         else:
             GameData[genre.text]+=1
     print(f"The Statistics for the current top {gamesToCheck} entries in {pageToCheck} are:")
-    for key in GameData.keys():
-        FinalData.append(f"|  {key}: {round((GameData[key]/gamesToCheck)*100,2)}% ({GameData[key]} games)")
-    FinalData.sort()
+    sorted_d = dict(sorted(GameData.items(), key=operator.itemgetter(1),reverse=True))
+    for key in sorted_d.keys():
+        FinalData.append(f"|  {key}: {round((sorted_d[key]/gamesToCheck)*100,2)}% ({sorted_d[key]} games)")
+##    FinalData.sort()
     for i in FinalData:
         print(i)
     #print(f"Scanned {len(FinalData)} games properly")
