@@ -6,8 +6,6 @@ import operator
 kill = False
 driver = webdriver.Firefox()
 while kill == False:
-
-
     gamesToCheck = int(input("How many games to check?\n"))
     pageToCheck = input("Which page would you like to view? (i.e: games, games/platform-web, etc.)\n")
     driver.get(f"https://itch.io/{pageToCheck}")
@@ -31,12 +29,8 @@ while kill == False:
     sorted_d = dict(sorted(GameData.items(), key=operator.itemgetter(1),reverse=True))
     for key in sorted_d.keys():
         FinalData.append(f"|  {key}: {round((sorted_d[key]/gamesToCheck)*100,2)}% ({sorted_d[key]} games)")
-##    FinalData.sort()
     for i in FinalData:
         print(i)
-    #print(f"Scanned {len(FinalData)} games properly")
-    
     DoKill = input("Find some more data? (y/n)\n")
     if DoKill != 'y':
-        kill = True
-
+        kill = True 
